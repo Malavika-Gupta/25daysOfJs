@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+        //Task 1: Save a string value to localStorage and retrieve it
+        // Save a string to localStorage
+        localStorage.setItem('myString', 'Hello, LocalStorage!');
+
+        // Retrieve and log the string from localStorage
+        let retrievedString = localStorage.getItem('myString');
+        console.log('Retrieved String:', retrievedString);
+
+        //Task 2: Save an object to localStorage by converting it to JSON
+        // Save an object to localStorage
+        let myObject = { name: 'John Doe', age: 30 };
+        localStorage.setItem('myObject', JSON.stringify(myObject));
+
+        // Retrieve, parse, and log the object from localStorage
+        let retrievedObject = JSON.parse(localStorage.getItem('myObject'));
+        console.log('Retrieved Object:', retrievedObject);
+
+        //Task 3: Create a form that saves user input to localStorage
+        document.getElementById('localForm').onsubmit = function(e) {
+            e.preventDefault();
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            localStorage.setItem('userData', JSON.stringify({ name, email }));
+            alert('Data saved to localStorage!');
+        };
+        // Retrieve and display data on page load
+        window.onload = function() {
+        let savedData = JSON.parse(localStorage.getItem('userData'));
+        if (savedData) {
+            console.log('Saved Data:', savedData);
+        } else {
+            console.log('No data found in localStorage.');
+        }
+        };
+
+        //Task 4: Write a script to remove an item from localStorage
+        // Log before removal
+        console.log('Before removal:', localStorage.getItem('userData'));
+
+        // Remove item from localStorage
+        localStorage.removeItem('userData');
+
+        // Log after removal
+        console.log('After removal:', localStorage.getItem('userData'));
+
+        //Task 5: Save a string value to sessionStorage and retrieve it
+        // Save a string to sessionStorage
+        sessionStorage.setItem('myString', 'Hello, SessionStorage!');
+
+        // Retrieve and log the string from sessionStorage
+        let retrieveString = sessionStorage.getItem('myString');
+        console.log('Retrieved String:', retrieveString);
+
+        //Task 6: Save an object to sessionStorage by converting it to JSON
+        // Save an object to sessionStorage
+        let myobject = { name: 'Jane Doe', age: 25 };
+        sessionStorage.setItem('myObject', JSON.stringify(myobject));
+
+        // Retrieve, parse, and log the object from sessionStorage
+        let retrievedobject = JSON.parse(sessionStorage.getItem('myObject'));
+        console.log('Retrieved Object:', retrieveoObject);
+
+        //Task 9: Function to save a value to both localStorage and sessionStorage
+        function saveToBothStorages(key, value) {
+        localStorage.setItem(key, value);
+        sessionStorage.setItem(key, value);
+        console.log(`Saved ${key} to both storages.`);
+        }
+
+        // Example usage
+        saveToBothStorages('sharedKey', 'Shared Value');
+
+        // Retrieve and log the values
+        console.log('localStorage Value:', localStorage.getItem('sharedKey'));
+        console.log('sessionStorage Value:', sessionStorage.getItem('sharedKey'));
+
+
+        //Task 10: Function to clear all data from both localStorage and sessionStorage
+        function clearBothStorages() {
+        localStorage.clear();
+        sessionStorage.clear();
+        console.log('Both storages cleared.');
+        }
+
+        // Example usage
+        clearBothStorages();
+
+        // Verify that both storages are empty
+        console.log('localStorage after clear:', localStorage.getItem('sharedKey'));
+        console.log('sessionStorage after clear:', sessionStorage.getItem('sharedKey'));
+
+
+    </script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <form id="localForm">
+        <input type="text" id="name" placeholder="Enter name" required>
+        <input type="email" id="email" placeholder="Enter email" required>
+        <button type="submit">Save</button>
+    </form>
+</head>
+<body>
+    
+</body>
+</html>
