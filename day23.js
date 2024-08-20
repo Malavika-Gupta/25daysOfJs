@@ -127,4 +127,55 @@ var trap = function(height) {
     return water;
 };
 
-//
+//Word Ladder
+/**
+ * @param {string} beginWord
+ * @param {string} endWord
+ * @param {string[]} wordList
+ * @return {number}
+ */
+var ladderLength = function (beginWord, endWord, wordList) {
+    if (wordList.indexOf(endWord) == -1) return 0;
+
+    let visited = new Set();
+    let queue = [beginWord];
+    let length = 0;
+    let wordSet = new Set(wordList);
+
+    while (queue.length > 0) { // BFS Loop through all the elements in the Queue;
+        let size = queue.length;
+        length++;
+
+        for (let i = 0; i < size; i++) {
+            let current = queue.shift(); // Get the first Element in the queue
+
+            for (let j = 0; j < current.length; j++) { // Check each Character in the queue item and compare each values
+
+                let temp = current.split("");
+                // comapre each values by changing each charater bit from 'a' to 'z' and check with the wordList
+                for (let char = 97; char <= 122; char++) {
+                    temp[j] = String.fromCharCode(char);
+
+                    let newWord = temp.join("");
+                    if (newWord == endWord) { // if the newWord is the endWord return
+                        return length + 1;
+                    }
+
+                    // if the word is in WordList and not Visited then add it to the queue and visted Set
+                    if (wordSet.has(newWord) && !visited.has(newWord)) {
+                        queue.push(newWord);
+                        visited.add(newWord);
+                    }
+                }
+            }
+        }
+    }
+
+    return 0;
+};
+
+// Test Case 
+let beginWord1 = "hit";
+let endWord1 = "cog";
+let wordList1 = ["hot", "dot", "dog", "lot", "log", "cog"];
+console.log(ladderLength(beginWord1, endWord1, wordList1)); // Expected output: 5
